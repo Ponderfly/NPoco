@@ -402,7 +402,10 @@ namespace NPoco
 
             // Perform parameter prefix replacements
             if (_paramPrefix != "@")
-                sql = ParameterHelper.rxParamsPrefix.Replace(sql, m => _paramPrefix + m.Value.Substring(1));
+                if(_dbType == DatabaseType.OracleOle)
+                    sql = ParameterHelper.rxParamsPrefix.Replace(sql, m => _paramPrefix);
+                else
+                    sql = ParameterHelper.rxParamsPrefix.Replace(sql, m => _paramPrefix + m.Value.Substring(1));
             sql = sql.Replace("@@", "@");		   // <- double @@ escapes a single @
 
             // Create the command and add parameters

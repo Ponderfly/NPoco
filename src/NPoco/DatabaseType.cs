@@ -23,6 +23,7 @@ namespace NPoco
         public static DatabaseType SqlServer2005 { get { return DynamicDatabaseType.MakeSqlServerType("SqlServerDatabaseType"); } }
         public static DatabaseType PostgreSQL { get { return Singleton<PostgreSQLDatabaseType>.Instance; } }
         public static DatabaseType Oracle { get { return Singleton<OracleDatabaseType>.Instance; } }
+        public static DatabaseType OracleOle { get { return Singleton<OracleOleDatabaseType>.Instance; } }
         public static DatabaseType OracleManaged { get { return Singleton<OracleManagedDatabaseType>.Instance; } }
         public static DatabaseType MySQL { get { return Singleton<MySqlDatabaseType>.Instance; } }
         public static DatabaseType SQLite { get { return Singleton<SQLiteDatabaseType>.Instance; } }
@@ -267,6 +268,8 @@ namespace NPoco
                 return Singleton<OracleDatabaseType>.Instance;
             if (typeName.StartsWith("Oracle"))
                 return Singleton<OracleDatabaseType>.Instance;
+            if (typeName.StartsWith("OracleOle"))
+                return Singleton<OracleOleDatabaseType>.Instance;
             if (typeName.StartsWith("SQLite"))
                 return Singleton<SQLiteDatabaseType>.Instance;
             if (typeName.StartsWith("SqlConnection"))
@@ -285,6 +288,8 @@ namespace NPoco
                     return Singleton<PostgreSQLDatabaseType>.Instance;
                 if (providerName.IndexOf("Oracle.DataAccess", StringComparison.OrdinalIgnoreCase) >= 0)
                     return Singleton<OracleDatabaseType>.Instance;
+                if (providerName.IndexOf("ole", StringComparison.OrdinalIgnoreCase) >= 0)
+                    return Singleton<OracleOleDatabaseType>.Instance;
                 if (providerName.IndexOf("Oracle.ManagedDataAccess", StringComparison.OrdinalIgnoreCase) >= 0)
                     return Singleton<OracleManagedDatabaseType>.Instance;
                 if (providerName.IndexOf("SQLite", StringComparison.OrdinalIgnoreCase) >= 0)
